@@ -1,0 +1,107 @@
+@charset "UTF-8";
+
+//flex前缀  ---------   预处理器mixin,类似less,兼容手机端和pc端
+.display-flex(@display: flex) {
+    & when (@display=flex) {
+        display: -webkit-box;
+    }
+    & when (@display=inline-flex) {
+        display: -webkit-inline-box;
+    }
+    display: @display;
+    display: e("-webkit-@{display}");
+}
+
+.flex-direction(@direction) {
+    & when (@direction=row) {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+    }
+    & when (@direction=row-reverse) {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: reverse;
+    }
+    & when (@direction=column) {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+    }
+    & when (@direction=column-reverse) {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: reverse;
+    }
+    -webkit-flex-direction: @direction;
+    flex-direction: @direction;
+}
+
+.flex-wrap(@wrap) {
+    & when (@wrap=nowrap) {
+        -webkit-box-lines: single;
+    }
+    & when (@wrap=wrap) {
+        -webkit-box-lines: multiple;
+    }
+    flex-wrap: @wrap;
+    -webkit-flex-wrap: @wrap;
+}
+
+.justify-content(@justify-content) {
+    justify-content: @justify-content;
+    & when (@justify-content=flex-start) {
+        -webkit-box-pack: start;
+    }
+    & when (@justify-content=flex-end) {
+        -webkit-box-pack: end;
+    }
+    & when (@justify-content=center) {
+        -webkit-box-pack: center;
+    }
+    & when (@justify-content=space-between) {
+        -webkit-box-pack: justify;
+    }
+    -ms-flex-pack: @justify-content;
+    -webkit-justify-content: @justify-content;
+}
+
+.align-items(@align-items) {
+    align-items: @align-items;
+    & when (@align-items=flex-start) {
+        -webkit-box-align: start;
+    }
+    & when (@align-items=flex-end) {
+        -webkit-box-align: end;
+    }
+    & when (@align-items=center) {
+        -webkit-box-align: center;
+    }
+    & when (@align-items=baseline) {
+        -webkit-box-align: baseline;
+    }
+    & when (@align-items=stretch) {
+        -webkit-box-align: stretch;
+    }
+    -ms-flex-align: @align-items;
+    -webkit-align-items: @align-items;
+}
+
+.order(@order) {
+    -webkit-box-ordinal-group: @order;
+    -webkit-order: @order;
+    order: @order;
+}
+
+.flex(@flex) {
+    -webkit-box-flex: @flex;
+    -webkit-flex: @flex;
+    flex: @flex;
+}
+
+//调用
+.container-box {
+    .display-flex;
+    .flex-wrap(row);
+    .justify-content(center);
+    .align-items(center);
+    .row {
+        .flex(0 0 1);
+    }
+}
